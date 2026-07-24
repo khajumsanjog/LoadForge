@@ -11,16 +11,16 @@ ARCH="$(uname -m)"
 case "$OS" in
   darwin*)
     if [ "$ARCH" = "arm64" ]; then
-      BINARY_NAME="loadforge-darwin-arm64"
+      ZIP_NAME="LoadForge-macOS-AppleSilicon.zip"
     else
-      BINARY_NAME="loadforge-darwin-amd64"
+      ZIP_NAME="LoadForge-macOS-Intel.zip"
     fi
     ;;
   linux*)
-    BINARY_NAME="loadforge-linux-amd64"
+    ZIP_NAME="LoadForge-Linux-x64.zip"
     ;;
   msys*|mingw*|cygwin*)
-    BINARY_NAME="loadforge-windows-amd64.exe"
+    ZIP_NAME="LoadForge-Windows-x64.zip"
     ;;
   *)
     echo "❌ Unsupported operating system: $OS ($ARCH)"
@@ -30,17 +30,22 @@ esac
 
 INSTALL_DIR="$HOME/.loadforge/bin"
 mkdir -p "$INSTALL_DIR"
-TARGET="$INSTALL_DIR/loadforge"
+TMP_ZIP="$(mktemp)"
 
-DOWNLOAD_URL="https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/releases/$BINARY_NAME"
+DOWNLOAD_URL="https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/releases/$ZIP_NAME"
 
-echo "📥 Downloading LoadForge for $OS ($ARCH)..."
-curl -fsSL "$DOWNLOAD_URL" -o "$TARGET"
-chmod +x "$TARGET"
+echo "📥 Downloading LoadForge package ($ZIP_NAME)..."
+curl -fsSL "$DOWNLOAD_URL" -o "$TMP_ZIP"
+
+echo "📦 Extracting LoadForge to $INSTALL_DIR..."
+unzip -o "$TMP_ZIP" -d "$INSTALL_DIR" > /dev/null
+rm -f "$TMP_ZIP"
+
+chmod +x "$INSTALL_DIR/loadforge"
 
 echo "=================================================="
-echo "✔ LoadForge installed successfully at $TARGET"
+echo "✔ LoadForge installed successfully at $INSTALL_DIR/loadforge"
 echo "⚡ Starting LoadForge on http://localhost:8080..."
 echo "=================================================="
 
-exec "$TARGET" -port 8080 -browser
+exec "$INSTALL_DIR/loadforge" -port 8080 -browser

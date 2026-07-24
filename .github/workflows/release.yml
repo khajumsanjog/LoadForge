@@ -40,23 +40,19 @@ jobs:
             releases/LoadForge-macOS-Intel.zip
             releases/LoadForge-Windows-x64.zip
             releases/LoadForge-Linux-x64.zip
-            releases/loadforge-darwin-arm64
-            releases/loadforge-darwin-amd64
-            releases/loadforge-linux-amd64
-            releases/loadforge-windows-amd64.exe
           title: "LoadForge ${{ github.ref_name }} — High-Concurrency Local Load Testing Platform"
           body: |
             ## ⚡ LoadForge ${{ github.ref_name }} Release
 
-            ### 📦 Easy 1-Click Run Packages (Double-Click to Launch):
-            - 🍏 **macOS Apple Silicon (M1/M2/M3/M4)**: [`LoadForge-macOS-AppleSilicon.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip) *(Unzip & double-click `Double-Click-To-Run.command`)*
-            - 💻 **macOS Intel**: [`LoadForge-macOS-Intel.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip) *(Unzip & double-click `Double-Click-To-Run.command`)*
-            - 🪟 **Windows (x64)**: [`LoadForge-Windows-x64.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip) *(Unzip & double-click `Double-Click-To-Run.bat`)*
-            - 🐧 **Linux (x64)**: [`LoadForge-Linux-x64.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip) *(Unzip & run `./run.sh`)*
+            ### 📦 1-Click Double-Clickable App Packages:
+            - 🍏 **macOS Apple Silicon (M1/M2/M3/M4)**: `LoadForge-macOS-AppleSilicon.zip` *(Unzip & double-click `Double-Click-To-Run.command`)*
+            - 💻 **macOS Intel**: `LoadForge-macOS-Intel.zip` *(Unzip & double-click `Double-Click-To-Run.command`)*
+            - 🪟 **Windows (x64)**: `LoadForge-Windows-x64.zip` *(Unzip & double-click `Double-Click-To-Run.bat`)*
+            - 🐧 **Linux (x64)**: `LoadForge-Linux-x64.zip` *(Unzip & run `./run.sh`)*
 
             ---
 
-            ### ⚡ 1-Line Universal Terminal Installer:
+            ### ⚡ Universal Terminal Quick Installer:
             ```bash
             curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh
             ```
