@@ -21,11 +21,13 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
+          cache-dependency-path: 'backend/go.sum'
 
       - name: Setup Node.js (Latest LTS)
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache-dependency-path: 'frontend/package-lock.json'
 
       - name: Install Build Tools
         run: |
@@ -50,7 +52,7 @@ jobs:
             releases/LoadForge-macOS-Intel.zip
             releases/LoadForge-Windows-x64.zip
             releases/LoadForge-Linux-x64.zip
-          title: "LoadForge ${{ github.ref_name }} — High-Concurrency Local Load Testing Platform"
+          name: "LoadForge ${{ github.ref_name }} — High-Concurrency Local Load Testing Platform"
           body: |
             ## ⚡ LoadForge ${{ github.ref_name }} Release
 
