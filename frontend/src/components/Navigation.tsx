@@ -10,7 +10,8 @@ import {
   FileText,
   Settings,
   Activity,
-  Zap
+  Zap,
+  BookOpen
 } from 'lucide-react';
 
 interface NavigationProps {
@@ -38,6 +39,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'bottlenecks', label: 'Bottlenecks', icon: AlertTriangle },
     { id: 'compare', label: 'Comparisons', icon: GitCompare },
     { id: 'reports', label: 'Reports', icon: FileText },
+    { id: 'docs', label: 'Docs', icon: BookOpen },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 

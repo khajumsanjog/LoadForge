@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoadForge Documentation — Local-First Load Testing Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gh-bg: #0d1117;
+            --gh-header-bg: #161b22;
+            --gh-[#30363d]: #30363d;
+            --gh-[#21262d]: #21262d;
+            --gh-[#8b949e]: #8b949e;
+            --gh-text: #c9d1d9;
+            --gh-text-white: #f0f6fc;
+            --gh-accent: #58a6ff;
+            --gh-success: #3fb950;
+            --gh-warning: #d29922;
+            --gh-danger: #f85149;
+            --gh-[#000000]: #a5d6ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--gh-bg);
+            color: var(--gh-text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        /* Sidebar Styles */
+        aside {
+            width: 300px;
+            background-color: var(--gh-header-bg);
+            border-right: 1px solid var(--gh-[#30363d]);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            padding: 20px;
+            border-bottom: 1px solid var(--gh-[#30363d]);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gh-text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .brand-logo span { color: var(--gh-accent); }
+
+        .search-box {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gh-[#30363d]);
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: var(--gh-bg);
+            border: 1px solid var(--gh-[#30363d]);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: var(--gh-text-white);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--gh-accent);
+        }
+
+        .nav-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 12px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gh-[#8b949e]);
+            padding: 8px 12px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gh-text);
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.15s, color 0.15s;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover {
+            background-color: var(--gh-[#21262d]);
+            color: var(--gh-text-white);
+        }
+
+        .nav-item.active {
+            background-color: rgba(56, 139, 253, 0.15);
+            color: var(--gh-accent);
+            font-weight: 600;
+            border: 1px solid rgba(56, 139, 253, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 60px;
+            max-width: 960px;
+        }
+
+        .doc-section {
+            display: none;
+        }
+
+        .doc-section.active {
+            display: block;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gh-text-white);
+            border-bottom: 1px solid var(--gh-[#30363d]);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gh-text-white);
+            margin-top: 32px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--gh-[#30363d]);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 14px;
+            color: var(--gh-text);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        /* Callouts */
+        .callout {
+            background-color: var(--gh-header-bg);
+            border-left: 4px solid var(--gh-accent);
+            border-radius: 0 8px 8px 0;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: var(--gh-accent);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .callout.warning {
+            border-left-color: var(--gh-warning);
+        }
+        .callout.warning .callout-title {
+            color: var(--gh-warning);
+        }
+
+        /* Code Blocks */
+        .code-container {
+            position: relative;
+            background-color: var(--gh-header-bg);
+            border: 1px solid var(--gh-[#30363d]);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: var(--gh-[#21262d]);
+            border-bottom: 1px solid var(--gh-[#30363d]);
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--gh-[#8b949e]);
+        }
+
+        pre {
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--gh-[#000000]);
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            background: var(--gh-[#30363d]);
+            border: 1px solid var(--gh-[#8b949e]);
+            color: var(--gh-text-white);
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--gh-accent);
+            border-color: var(--gh-accent);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--gh-[#30363d]);
+        }
+
+        th {
+            background-color: var(--gh-[#21262d]);
+            color: var(--gh-text-white);
+            font-weight: 600;
+        }
+
+        td {
+            background-color: var(--gh-header-bg);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: rgba(110, 118, 129, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--gh-[#000000]);
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background-color: var(--gh-header-bg);
+            border: 1px solid var(--gh-[#30363d]);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gh-accent);
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-get { background: rgba(63, 185, 80, 0.2); color: var(--gh-success); }
+        .badge-post { background: rgba(88, 166, 255, 0.2); color: var(--gh-accent); }
+        .badge-ws { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; }
+            main { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar -->
+    <aside>
+        <div class="brand">
+            <a href="https://github.com/khajumsanjog/LoadForge" target="_blank" class="brand-logo">
+                ⚡ <span>LoadForge</span> Docs
+            </a>
+            <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" style="font-size: 11px; background: rgba(88,166,255,0.15); color: var(--gh-accent); padding: 3px 8px; border-radius: 4px; font-mono font-weight: 600; text-decoration: none;">GitHub Releases</a>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search docs (e.g. RPS, OpenAPI, cURL)..." onkeyup="filterDocs()">
+        </div>
+
+        <div class="nav-list" id="navList">
+            <div class="nav-section-title">Documentation Guide</div>
+            <button class="nav-item active" onclick="showSection('getting-started')">
+                <span>🚀 Getting Started</span>
+            </button>
+            <button class="nav-item" onclick="showSection('load-patterns')">
+                <span>⚡ Traffic Load Patterns</span>
+            </button>
+            <button class="nav-item" onclick="showSection('scenarios')">
+                <span>🔄 Multi-Step Scenarios</span>
+            </button>
+            <button class="nav-item" onclick="showSection('importers')">
+                <span>📥 Import Definitions</span>
+            </button>
+            <button class="nav-item" onclick="showSection('metrics')">
+                <span>📊 Metrics & Quantiles</span>
+            </button>
+            <button class="nav-item" onclick="showSection('api-ref')">
+                <span>🛠️ REST & WebSocket API</span>
+            </button>
+            <button class="nav-item" onclick="showSection('security')">
+                <span>🛡️ Security & Privacy</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- SECTION 1: GETTING STARTED -->
+        <div id="getting-started" class="doc-section active">
+            <h1>🚀 Getting Started with LoadForge</h1>
+            <p>LoadForge is a high-concurrency, local-first performance testing and observability platform designed to answer critical API scalability questions during every load benchmark.</p>
+
+            <div class="callout">
+                <div class="callout-title">⚡ Single Executable Binary Releases</div>
+                <p>Download pre-compiled binaries for macOS, Linux, and Windows from GitHub Releases:</p>
+                <p style="margin-top: 8px;">
+                    <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" style="display: inline-block; background: var(--gh-accent); color: #fff; padding: 6px 14px; border-radius: 6px; font-weight: 700; text-decoration: none; font-size: 13px;">View Releases on GitHub</a>
+                </p>
+            </div>
+
+            <h2>Quick Start Command</h2>
+            <p>Run the binary executable from your terminal:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>bash — Terminal Command</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>./loadforge -port 8080 -browser</code></pre>
+            </div>
+
+            <h2>CLI Command Flags</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-port</code></td>
+                        <td><code>8080</code></td>
+                        <td>HTTP server port for dashboard UI & REST API endpoints.</td>
+                    </tr>
+                    <tr>
+                        <td><code>-db</code></td>
+                        <td><code>~/.loadforge/loadforge.db</code></td>
+                        <td>Path to SQLite local storage database file.</td>
+                    </tr>
+                    <tr>
+                        <td><code>-browser</code></td>
+                        <td><code>false</code></td>
+                        <td>Automatically opens web dashboard in system browser on startup.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2: LOAD PATTERNS -->
+        <div id="load-patterns" class="doc-section">
+            <h1>⚡ Traffic Load Patterns</h1>
+            <p>LoadForge supports 6 core load profile generation strategies to test baseline capacity, traffic ramps, and breaking point limits.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Constant Load</div>
+                    <p>Maintains a static number of virtual users (VUs) for a set duration (e.g., 100 VUs for 5 minutes). Best for steady-state throughput testing.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Ramp Up / Ramp Down</div>
+                    <p>Gradually increases or decreases user concurrency over time (e.g., 10 → 500 VUs over 2 minutes). Pinpoints exact degradation thresholds.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Spike Test</div>
+                    <p>Suddenly surges traffic (e.g., 20 VUs → 2,000 VUs in 5 seconds). Tests system recovery and circuit breaker handling.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Breakpoint Auto-Stop</div>
+                    <p>Steadily escalates load until error rate exceeds threshold (&gt;5% 5xx) or P95 latency exceeds maximum limits. Auto-stops on failure.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: SCENARIOS -->
+        <div id="scenarios" class="doc-section">
+            <h1>🔄 Multi-Step API Scenarios</h1>
+            <p>Simulate multi-step user journeys (e.g., Auth Login → Extract Bearer Token → Fetch Product Catalog → Checkout Order).</p>
+
+            <h2>Dynamic Variables & Extractions</h2>
+            <p>Use <code>{{base_url}}</code> and response extractions to pass dynamic values across steps:</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>json — Extraction Config & Header Injection</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>// Step 1: Login Request Response Body
+{
+  "token": "eyJhbGciOiJIUzI1Ni..."
+}
+
+// Extraction Rule: source="body_json", varName="jwt", expression="$.token"
+// Step 2 Request Header:
+Authorization: Bearer {{jwt}}</code></pre>
+            </div>
+        </div>
+
+        <!-- SECTION 4: IMPORTERS -->
+        <div id="importers" class="doc-section">
+            <h1>📥 Importing API Definitions</h1>
+            <p>Convert OpenAPI/Swagger specs, Postman collections, cURL commands, or HAR files into LoadForge test scenarios in one click.</p>
+
+            <div class="callout">
+                <div class="callout-title">cURL Importer Example</div>
+                <p>Paste any cURL command directly into the Importer tab. LoadForge parses the method, target URL, HTTP headers, and request body payload automatically.</p>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>bash — cURL Import String</span>
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code>curl -X POST http://localhost:8080/api/mock/echo \
+  -H "Content-Type: application/json" \
+  -d '{"sku": "ITEM-101", "qty": 2}'</code></pre>
+            </div>
+        </div>
+
+        <!-- SECTION 5: METRICS & QUANTILES -->
+        <div id="metrics" class="doc-section">
+            <h1>📊 Metrics, Quantiles & Timing Waterfalls</h1>
+            <p>Understand how LoadForge calculates requests per second (RPS), tail latency quantiles, and timing waterfalls.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Definition</th>
+                        <th>Why It Matters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Total RPS</strong></td>
+                        <td>Requests handled per second across all virtual users.</td>
+                        <td>Measures overall server throughput capacity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>P50 (Median)</strong></td>
+                        <td>Response time experienced by 50% of requests.</td>
+                        <td>Represents average user speed.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>P95 / P99 Line</strong></td>
+                        <td>95% and 99% of requests were faster than this time.</td>
+                        <td>Reveals tail latency for worst-case heavy users.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TTFB Waterfall</strong></td>
+                        <td>Time to First Byte (DNS + TCP + TLS + Server Processing).</td>
+                        <td>Pinpoints server backend code vs network delays.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 6: API REFERENCE -->
+        <div id="api-ref" class="doc-section">
+            <h1>🛠️ REST & WebSocket API Reference</h1>
+            <p>Integrate LoadForge into your local scripts, CI/CD automation pipelines, or custom dashboards.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <span class="badge badge-get">GET</span> <code>/api/configs</code>
+                    <p style="margin-top: 8px;">Returns list of all saved test configurations.</p>
+                </div>
+                <div class="card">
+                    <span class="badge badge-post">POST</span> <code>/api/tests/start</code>
+                    <p style="margin-top: 8px;">Starts a new load test execution run asynchronously.</p>
+                </div>
+                <div class="card">
+                    <span class="badge badge-ws">WS</span> <code>/ws</code>
+                    <p style="margin-top: 8px;">WebSocket endpoint broadcasting live telemetry snapshots.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: SECURITY -->
+        <div id="security" class="doc-section">
+            <h1>🛡️ Security & Privacy Policy</h1>
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Authorized Testing Disclaimer</div>
+                <p>Only load test applications and servers you own or have explicit permission to test.</p>
+            </div>
+            <p>LoadForge runs locally, binds to localhost loopback interfaces, and automatically masks Bearer tokens, API keys, and passwords (`[MASKED_SECRET]`) in report exports.</p>
+        </div>
+
+    </main>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.doc-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            const targetSec = document.getElementById(id);
+            if (targetSec) targetSec.classList.add('active');
+            
+            event.currentTarget.classList.add('active');
+            window.location.hash = id;
+        }
+
+        function filterDocs() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
+
+        function copyCode(btn) {
+            const code = btn.parentElement.nextElementSibling.innerText;
+            navigator.clipboard.writeText(code);
+            btn.innerText = 'Copied!';
+            setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+        }
+
+        // Initialize hash route on load
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                showSection(hash);
+            }
+        });
+    </script>
+</body>
+</html>

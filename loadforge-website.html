@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoadForge — High-Concurrency Local Load Testing Platform</title>
+  <meta name="description" content="LoadForge is a local-first, self-hosted load testing and performance observability platform. High-concurrency Go load engine, real-time WebSocket telemetry, automated bottleneck detection, and downloadable HTML/PDF reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #090d16;
+      --surface:   #0f172a;
+      --surface2:  #1e293b;
+      --border:    #334155;
+      --accent:    #38bdf8;
+      --accent-glow: #0ea5e9;
+      --accent2:   #22c55e;
+      --purple:    #c084fc;
+      --rose:      #f43f5e;
+      --text:      #f8fafc;
+      --muted:     #94a3b8;
+      --code-bg:   #020617;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 1.25rem; font-weight: 800; color: #fff; text-decoration: none;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .nav-logo-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-glow), #6366f1);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-glow), #4f46e5);
+      color: #fff; border: none; border-radius: 10px;
+      padding: .65rem 1.4rem; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);
+      transition: all .2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 0 35px rgba(14, 165, 233, 0.5); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(14, 165, 233, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent); border-radius: 99px; padding: .4rem 1.1rem;
+      font-size: .85rem; font-weight: 600; margin-bottom: 1.8rem;
+    }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      font-weight: 800; line-height: 1.15; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .hero p {
+      font-size: 1.2rem; color: var(--muted); max-width: 680px; margin: 0 auto 2.5rem; leading-height: 1.6;
+    }
+    .hero-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: linear-gradient(135deg, var(--accent-glow), #4f46e5);
+      color: #fff; border: none; border-radius: 12px;
+      padding: .9rem 2.2rem; font-size: 1rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      box-shadow: 0 0 35px rgba(14, 165, 233, 0.35);
+      transition: all .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(14, 165, 233, 0.55); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: .9rem 2.2rem; font-size: 1rem; font-weight: 500;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--surface2); }
+
+    /* ── QUICK TERMINAL INSTALL ── */
+    .install-section {
+      max-width: 760px; margin: 0 auto 6rem; padding: 0 2rem;
+      text-align: center;
+    }
+    .install-section h2 { font-size: 1.1rem; color: var(--muted); margin-bottom: 1rem; font-weight: 500; }
+    .code-block {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1.8rem;
+      text-align: left; position: relative;
+      font-family: 'JetBrains Mono', monospace; font-size: .9rem;
+      color: #c9d1d9; overflow-x: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .code-block .cmd { color: var(--accent); font-weight: 600; }
+    .code-block .comment { color: #64748b; }
+    .copy-btn {
+      position: absolute; top: .85rem; right: 1rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 6px; padding: .35rem .8rem;
+      font-size: .75rem; cursor: pointer; transition: all .2s;
+    }
+    .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+
+    /* ── FEATURES GRID ── */
+    .section { max-width: 1200px; margin: 0 auto 6rem; padding: 0 2rem; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header h2 { font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem;
+    }
+    .feature-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: all .3s ease; position: relative; overflow: hidden;
+    }
+    .feature-card:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.1);
+    }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.2);
+      color: var(--accent); display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.4rem;
+    }
+    .feature-card h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: .8rem; }
+    .feature-card p { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+
+    /* ── ARCHITECTURE SECTION ── */
+    .arch-container {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
+      border: 1px solid var(--border); border-radius: 24px;
+      padding: 3.5rem 3rem; margin-bottom: 6rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .arch-content h2 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 1.2rem; }
+    .arch-content p { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
+    .arch-list { list-style: none; }
+    .arch-list li {
+      display: flex; align-items: flex-start; gap: .8rem;
+      font-size: .95rem; color: var(--text); margin-bottom: 1rem;
+    }
+    .arch-list li::before {
+      content: '⚡'; color: var(--accent); font-size: 1.1rem;
+    }
+
+    .mockup-window {
+      background: #020617; border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+    .mockup-header {
+      background: #0f172a; padding: .8rem 1.2rem;
+      display: flex; align-items: center; gap: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #22c55e; }
+    .mockup-body { padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: .8rem; }
+
+    /* ── DOWNLOAD TABLE ── */
+    .download-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;
+    }
+    .download-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; text-align: center;
+      transition: all .2s;
+    }
+    .download-card:hover { border-color: var(--accent); background: var(--surface2); }
+    .download-os { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: .4rem; }
+    .download-arch { font-size: .85rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem; text-align: center;
+      color: var(--muted); font-size: .9rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .arch-container { grid-template-columns: 1fr; }
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">⚡</div>
+      <div>LoadForge</div>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#architecture">Architecture</a>
+      <a href="loadforge-docs.html" target="_blank">Docs Portal</a>
+      <a href="#downloads">Downloads</a>
+      <a href="https://github.com/khajumsanjog/LoadForge" target="_blank">GitHub Repo</a>
+    </div>
+    <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" class="nav-cta">Download v1.0.0 Release</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      LoadForge v1.0.0 — Open Source Release
+    </div>
+    <h1>High-Concurrency Local Load Testing & Performance Observability</h1>
+    <p>
+      LoadForge is a local-first alternative to JMeter, Locust, and k6 with zero external dependencies. Execute high-concurrency traffic tests, inspect real-time Locust-style graphs, detect endpoint bottlenecks, and export multi-format HTML/PDF reports.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" class="btn-primary">
+        ⚡ Download Binary Release
+      </a>
+      <a href="https://github.com/khajumsanjog/LoadForge" target="_blank" class="btn-secondary">
+        ⭐ GitHub Repository
+      </a>
+      <a href="loadforge-docs.html" target="_blank" class="btn-secondary">
+        📖 Read Documentation
+      </a>
+    </div>
+  </section>
+
+  <!-- QUICK INSTALL -->
+  <section class="install-section">
+    <h2>One-Line Binary Launch (Zero Install Dependencies)</h2>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyInstall()">Copy</button>
+      <span class="comment"># Launch pre-compiled binary executable</span><br />
+      <span class="cmd">./loadforge-darwin-arm64</span> -port 8080 -browser
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-header">
+      <h2>Engineered for Serious DevOps & Engineers</h2>
+      <p>High-concurrency traffic generation coupled with automated root cause diagnostics.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>High-Concurrency Go Engine</h3>
+        <p>Goroutine worker pool architecture with tuned HTTP/1.1 & HTTP/2 connection reuse generating tens of thousands of requests per second from your laptop.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Locust-Style Real-Time Telemetry</h3>
+        <p>Live WebSockets telemetry streaming Total RPS vs Failures/sec, P50 Median, P95/P99 tail latencies, active user ramp curves, and HTTP status distribution.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Automated Bottleneck Engine</h3>
+        <p>Pinpoints breaking point concurrency and classifies problems using a 4-step framework: Observation → Evidence → Likely Root Cause → Recommended Action.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Multi-Step User Journeys</h3>
+        <p>Construct realistic multi-step user scenarios (Login → Extract JWT Token → Fetch Products → Checkout) with dynamic variable interpolation.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📥</div>
+        <h3>OpenAPI, Postman & cURL Importer</h3>
+        <p>One-click converters for OpenAPI 3.0 / Swagger specs, Postman Collections, cURL commands, and HAR files straight into test scenarios.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Localhost Isolation & Secret Masking</h3>
+        <p>Local-first architecture storing test history in local SQLite (`~/.loadforge/loadforge.db`) with automatic masking of Bearer tokens and passwords.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section class="section" id="architecture">
+    <div class="arch-container">
+      <div class="arch-content">
+        <h2>Local-First Zero-Dependency Stack</h2>
+        <p>Designed to run standalone on your local workstation without requiring MySQL, Redis, Node.js, or Docker containers.</p>
+        <ul class="arch-list">
+          <li><strong>Go Load Engine:</strong> Asynchronous goroutine worker pools with sub-millisecond atomic quantiles math.</li>
+          <li><strong>React + Tailwind Frontend:</strong> Embedded directly into Go binary (`embed.FS`) for instant single-click dashboard access.</li>
+          <li><strong>Embedded SQLite Storage:</strong> Zero database configuration. Preserves all test run histories locally.</li>
+          <li><strong>WebSockets Telemetry Hub:</strong> Sub-second real-time metric broadcasting to browser clients.</li>
+        </ul>
+      </div>
+
+      <div class="mockup-window">
+        <div class="mockup-header">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+          <span style="color: #64748b; font-size: .75rem; margin-left: auto;">Terminal</span>
+        </div>
+        <div class="mockup-body text-slate-300 space-y-2">
+          <div style="color: #38bdf8;">$ ./loadforge-darwin-arm64 -port 8080 -browser</div>
+          <div style="color: #64748b;">Starting LoadForge...</div>
+          <div>SQLite DB initialized at <span style="color: #22c55e;">~/.loadforge/loadforge.db</span></div>
+          <div>Server listening at <span style="color: #38bdf8;">http://localhost:8080</span></div>
+          <div style="color: #c084fc;">[RUNNING] Constant Load Test: 200 VUs target</div>
+          <div style="color: #22c55e;">✔ 10,000 Requests | 0.00% Error Rate | P95: 6 ms</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD MATRIX -->
+  <section class="section" id="downloads">
+    <div class="section-header">
+      <h2>Download Pre-Compiled Executable Binary</h2>
+      <p>Single standalone executables for macOS, Linux, and Windows from GitHub Releases.</p>
+    </div>
+
+    <div class="download-grid">
+      <div class="download-card">
+        <div class="download-os"> macOS Executables</div>
+        <div class="download-arch">loadforge-darwin-arm64 (M1/M2/M3) & loadforge-darwin-amd64 (Intel)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download macOS Binaries</a>
+      </div>
+
+      <div class="download-card">
+        <div class="download-os">🐧 Linux Executable</div>
+        <div class="download-arch">loadforge-linux-amd64 (x86_64 Binary)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Linux Binary</a>
+      </div>
+
+      <div class="download-card">
+        <div class="download-os">🪟 Windows Executable</div>
+        <div class="download-arch">loadforge-windows-amd64.exe (Windows Executable)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/releases" target="_blank" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Windows Binary</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>LoadForge ⚡ | Open Source Load Testing & Observability</p>
+    <p style="margin-top: .5rem; font-size: .8rem; color: #64748b;">
+      Licensed under MIT. GitHub Repository: <a href="https://github.com/khajumsanjog/LoadForge" target="_blank">github.com/khajumsanjog/LoadForge</a>
+    </p>
+  </footer>
+
+  <script>
+    function copyInstall() {
+      navigator.clipboard.writeText('./loadforge-darwin-arm64 -port 8080 -browser');
+      const btn = document.querySelector('.copy-btn');
+      btn.innerText = 'Copied!';
+      setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
+    }
+  </script>
+</body>
+</html>

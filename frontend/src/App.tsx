@@ -8,6 +8,7 @@ import { BottleneckPage } from './pages/BottleneckPage';
 import { ErrorAnalysisPage } from './pages/ErrorAnalysisPage';
 import { ComparisonPage } from './pages/ComparisonPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { DocsPage } from './pages/DocsPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { api } from './services/api';
 import { TestConfig, TestRun } from './types';
@@ -21,6 +22,7 @@ const validTabs = [
   'bottlenecks',
   'compare',
   'reports',
+  'docs',
   'settings',
 ];
 
@@ -162,6 +164,10 @@ export function App() {
 
         {activeTab === 'reports' && (
           <ReportsPage run={currentRunToDisplay} />
+        )}
+
+        {activeTab === 'docs' && (
+          <DocsPage />
         )}
 
         {activeTab === 'settings' && (
