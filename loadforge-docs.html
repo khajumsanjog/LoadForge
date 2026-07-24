@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoadForge Comprehensive Documentation & Architecture Guide</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --gh-bg: #0d1117;
@@ -24,7 +27,11 @@
             --gh-purple: #bc8cff;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -65,7 +72,9 @@
             text-decoration: none;
         }
 
-        .brand-logo span { color: var(--gh-accent); }
+        .brand-logo span {
+            color: var(--gh-accent);
+        }
 
         .search-box {
             padding: 16px 20px;
@@ -150,7 +159,10 @@
             gap: 6px;
         }
 
-        .breadcrumb span { color: var(--gh-text-white); font-weight: 600; }
+        .breadcrumb span {
+            color: var(--gh-text-white);
+            font-weight: 600;
+        }
 
         .doc-section {
             display: none;
@@ -162,8 +174,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
@@ -200,14 +219,17 @@
             line-height: 1.6;
         }
 
-        ul, ol {
+        ul,
+        ol {
             margin-bottom: 20px;
             padding-left: 24px;
             font-size: 14px;
             color: var(--gh-text);
         }
 
-        li { margin-bottom: 8px; }
+        li {
+            margin-bottom: 8px;
+        }
 
         /* GitHub Style Alerts */
         .callout {
@@ -228,17 +250,37 @@
             gap: 8px;
         }
 
-        .callout.tip { border-left-color: var(--gh-success); }
-        .callout.tip .callout-title { color: var(--gh-success); }
+        .callout.tip {
+            border-left-color: var(--gh-success);
+        }
 
-        .callout.important { border-left-color: var(--gh-purple); }
-        .callout.important .callout-title { color: var(--gh-purple); }
+        .callout.tip .callout-title {
+            color: var(--gh-success);
+        }
 
-        .callout.warning { border-left-color: var(--gh-warning); }
-        .callout.warning .callout-title { color: var(--gh-warning); }
+        .callout.important {
+            border-left-color: var(--gh-purple);
+        }
 
-        .callout.caution { border-left-color: var(--gh-danger); }
-        .callout.caution .callout-title { color: var(--gh-danger); }
+        .callout.important .callout-title {
+            color: var(--gh-purple);
+        }
+
+        .callout.warning {
+            border-left-color: var(--gh-warning);
+        }
+
+        .callout.warning .callout-title {
+            color: var(--gh-warning);
+        }
+
+        .callout.caution {
+            border-left-color: var(--gh-danger);
+        }
+
+        .callout.caution .callout-title {
+            color: var(--gh-danger);
+        }
 
         /* Code Blocks */
         .code-container {
@@ -295,7 +337,8 @@
             font-size: 13px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 16px;
             text-align: left;
             border: 1px solid var(--gh-[#30363d]);
@@ -350,17 +393,39 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        .badge-get { background: rgba(63, 185, 80, 0.2); color: var(--gh-success); }
-        .badge-post { background: rgba(88, 166, 255, 0.2); color: var(--gh-accent); }
-        .badge-ws { background: rgba(168, 85, 247, 0.2); color: var(--gh-purple); }
+
+        .badge-get {
+            background: rgba(63, 185, 80, 0.2);
+            color: var(--gh-success);
+        }
+
+        .badge-post {
+            background: rgba(88, 166, 255, 0.2);
+            color: var(--gh-accent);
+        }
+
+        .badge-ws {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--gh-purple);
+        }
 
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-            aside { width: 100%; height: auto; }
-            main { padding: 20px; }
+            body {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                height: auto;
+            }
+
+            main {
+                padding: 20px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Left Sidebar -->
@@ -369,11 +434,12 @@
             <a href="https://github.com/khajumsanjog/LoadForge" target="_blank" class="brand-logo">
                 ⚡ <span>LoadForge</span> Docs
             </a>
-            <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip" style="font-size: 11px; background: rgba(63,185,80,0.2); color: var(--gh-success); padding: 4px 10px; border-radius: 6px; font-weight: 700; text-decoration: none;">📦 Download ZIP</a>
+
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search documentation..." onkeyup="filterDocs()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search documentation..."
+                onkeyup="filterDocs()">
         </div>
 
         <div class="nav-list" id="navList">
@@ -433,21 +499,32 @@
         <div id="overview" class="doc-section active">
             <div class="breadcrumb">Docs / Getting Started / <span>Overview & Architecture</span></div>
             <h1>🚀 LoadForge Platform Overview & Architecture</h1>
-            <p>LoadForge is an open-source, local-first performance testing and observability platform designed to give developers immediate, low-latency insights into API capacity, tail latencies, and system bottlenecks.</p>
+            <p>LoadForge is an open-source, local-first performance testing and observability platform designed to give
+                developers immediate, low-latency insights into API capacity, tail latencies, and system bottlenecks.
+            </p>
 
             <div class="callout tip">
                 <div class="callout-title">💡 Why Local-First Observability?</div>
-                <p>Unlike cloud load testing platforms that incur expensive usage fees and route internal traffic across external networks, LoadForge runs 100% locally on your workstation or internal test environment. Your API credentials, payloads, and benchmarks never leave your machine.</p>
+                <p>Unlike cloud load testing platforms that incur expensive usage fees and route internal traffic across
+                    external networks, LoadForge runs 100% locally on your workstation or internal test environment.
+                    Your API credentials, payloads, and benchmarks never leave your machine.</p>
             </div>
 
             <h2>Architecture Overview</h2>
             <p>LoadForge is built using a zero-dependency architecture packaged into a single Go binary:</p>
 
             <ul>
-                <li><strong>Go High-Concurrency Load Engine:</strong> Asynchronous goroutine worker pools with tuned HTTP connection reuse (HTTP/1.1 keep-alive and HTTP/2 multiplexing) capable of generating tens of thousands of requests per second.</li>
-                <li><strong>Embedded React + Tailwind Dashboard:</strong> The full-featured Vite React single-page application is compiled into pure JavaScript and embedded directly into the Go binary using Go's <code>embed.FS</code>.</li>
-                <li><strong>Embedded SQLite Storage Engine:</strong> Automatically initializes and manages a zero-config SQLite database at <code>~/.loadforge/loadforge.db</code> to store test configurations, execution runs, error logs, and metrics.</li>
-                <li><strong>Real-Time WebSockets Telemetry Hub:</strong> Streams lock-free atomic counters for RPS, errors, percentiles, and HTTP status codes to browser clients at sub-second intervals.</li>
+                <li><strong>Go High-Concurrency Load Engine:</strong> Asynchronous goroutine worker pools with tuned
+                    HTTP connection reuse (HTTP/1.1 keep-alive and HTTP/2 multiplexing) capable of generating tens of
+                    thousands of requests per second.</li>
+                <li><strong>Embedded React + Tailwind Dashboard:</strong> The full-featured Vite React single-page
+                    application is compiled into pure JavaScript and embedded directly into the Go binary using Go's
+                    <code>embed.FS</code>.</li>
+                <li><strong>Embedded SQLite Storage Engine:</strong> Automatically initializes and manages a zero-config
+                    SQLite database at <code>~/.loadforge/loadforge.db</code> to store test configurations, execution
+                    runs, error logs, and metrics.</li>
+                <li><strong>Real-Time WebSockets Telemetry Hub:</strong> Streams lock-free atomic counters for RPS,
+                    errors, percentiles, and HTTP status codes to browser clients at sub-second intervals.</li>
             </ul>
 
             <h2>System Architecture Diagram</h2>
@@ -483,7 +560,8 @@
             <h1>⚡ Quick Start & Installation Guide</h1>
 
             <h2>Method 1: Universal 1-Line Terminal Quick Installer (Recommended)</h2>
-            <p>Auto-detects your operating system (macOS Apple Silicon, macOS Intel, Linux, Windows), downloads LoadForge, sets executable permissions, and launches the dashboard automatically:</p>
+            <p>Auto-detects your operating system (macOS Apple Silicon, macOS Intel, Linux, Windows), downloads
+                LoadForge, sets executable permissions, and launches the dashboard automatically:</p>
 
             <div class="code-container">
                 <div class="code-header">
@@ -494,8 +572,10 @@
             </div>
 
             <h2>Method 2: 1-Click Source Code ZIP Download</h2>
-            <p>Download the complete project source code containing both <code>backend/</code> and <code>frontend/</code> directories:</p>
-            <p>👉 <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip" style="color: var(--gh-accent); font-weight: 600;">Download LoadForge-SourceCode.zip</a></p>
+            <p>Download the complete project source code containing both <code>backend/</code> and
+                <code>frontend/</code> directories:</p>
+            <p>👉 <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip"
+                    style="color: var(--gh-accent); font-weight: 600;">Download LoadForge-SourceCode.zip</a></p>
 
             <div class="code-container">
                 <div class="code-header">
@@ -562,32 +642,41 @@ go build -o loadforge main.go
         <div id="patterns" class="doc-section">
             <div class="breadcrumb">Docs / Core Engine / <span>Load Traffic Profiles</span></div>
             <h1>📈 Traffic Load Profiles & Generation Strategies</h1>
-            <p>LoadForge supports 6 traffic generation profiles designed to test baseline throughput, linear scaling, sudden traffic surges, and breaking points.</p>
+            <p>LoadForge supports 6 traffic generation profiles designed to test baseline throughput, linear scaling,
+                sudden traffic surges, and breaking points.</p>
 
             <div class="grid">
                 <div class="card">
                     <div class="card-title">1. Constant Load Profile</div>
-                    <p>Maintains a fixed target number of Virtual Users (VUs) for a specified test duration (e.g., 100 VUs for 5 minutes). Best for establishing steady-state latency and throughput baselines.</p>
+                    <p>Maintains a fixed target number of Virtual Users (VUs) for a specified test duration (e.g., 100
+                        VUs for 5 minutes). Best for establishing steady-state latency and throughput baselines.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">2. Ramp-Up / Ramp-Down</div>
-                    <p>Linearly scales Virtual User concurrency from a starting count to a target peak over a ramp period, then scales back down. Pinpoints exact concurrency thresholds where latency begins to degrade.</p>
+                    <p>Linearly scales Virtual User concurrency from a starting count to a target peak over a ramp
+                        period, then scales back down. Pinpoints exact concurrency thresholds where latency begins to
+                        degrade.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">3. Spike Test Profile</div>
-                    <p>Instantaneously surges Virtual Users (e.g., 20 VUs → 2,000 VUs in 5 seconds). Tests how fast your web server, connection pool, and auto-scaler recover from sudden bursts.</p>
+                    <p>Instantaneously surges Virtual Users (e.g., 20 VUs → 2,000 VUs in 5 seconds). Tests how fast your
+                        web server, connection pool, and auto-scaler recover from sudden bursts.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">4. Breakpoint Auto-Stop</div>
-                    <p>Steadily escalates Virtual Users until error rate exceeds threshold (&gt;5% 5xx errors) or P95 latency exceeds maximum SLA limit. Automatically halts the test to prevent cascading server crashes.</p>
+                    <p>Steadily escalates Virtual Users until error rate exceeds threshold (&gt;5% 5xx errors) or P95
+                        latency exceeds maximum SLA limit. Automatically halts the test to prevent cascading server
+                        crashes.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">5. Stress Test Profile</div>
-                    <p>Pushes traffic beyond expected capacity to determine ultimate breaking point concurrency, memory exhaustion limit, and error failure modes.</p>
+                    <p>Pushes traffic beyond expected capacity to determine ultimate breaking point concurrency, memory
+                        exhaustion limit, and error failure modes.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">6. Soak Test Profile</div>
-                    <p>Runs a sustained moderate load over extended time periods (e.g., 2 hours). Detects slow memory leaks, database connection pool exhaustion, and disk log accumulation.</p>
+                    <p>Runs a sustained moderate load over extended time periods (e.g., 2 hours). Detects slow memory
+                        leaks, database connection pool exhaustion, and disk log accumulation.</p>
                 </div>
             </div>
         </div>
@@ -596,7 +685,8 @@ go build -o loadforge main.go
         <div id="scenarios" class="doc-section">
             <div class="breadcrumb">Docs / Core Engine / <span>Multi-Step API Journeys</span></div>
             <h1>🔄 Multi-Step User Journeys & Dynamic Extractions</h1>
-            <p>Simulate realistic multi-step user scenarios (e.g., Login → Extract Bearer Token → Fetch Product Catalog → Create Order).</p>
+            <p>Simulate realistic multi-step user scenarios (e.g., Login → Extract Bearer Token → Fetch Product Catalog
+                → Create Order).</p>
 
             <h2>Variable Extraction Types</h2>
             <table>
@@ -627,7 +717,8 @@ go build -o loadforge main.go
             </table>
 
             <h2>Dynamic Variables & Placeholders</h2>
-            <p>Use double-curly brace placeholders anywhere in request headers, URL query parameters, or body payloads:</p>
+            <p>Use double-curly brace placeholders anywhere in request headers, URL query parameters, or body payloads:
+            </p>
 
             <div class="code-container">
                 <div class="code-header">
@@ -654,10 +745,14 @@ X-Random-ID: {{random_uuid}}</code></pre>
             <p>Convert existing API specs or browser sessions into LoadForge test configurations in one click.</p>
 
             <ul>
-                <li><strong>OpenAPI 3.0 / Swagger 2.0:</strong> Paste or upload OpenAPI JSON/YAML specs. LoadForge automatically parses endpoints, HTTP methods, path parameters, and sample request body schemas.</li>
-                <li><strong>Postman Collections v2.1:</strong> Import Postman Collection JSON files. Preserves request headers, body payloads, and environment variable mappings.</li>
-                <li><strong>cURL Command Importer:</strong> Paste any single or multi-line cURL command string. LoadForge extracts target URL, HTTP method, headers, and request data.</li>
-                <li><strong>HAR (HTTP Archive) Importer:</strong> Import HAR session files exported from Chrome DevTools to replicate real browser traffic sequences.</li>
+                <li><strong>OpenAPI 3.0 / Swagger 2.0:</strong> Paste or upload OpenAPI JSON/YAML specs. LoadForge
+                    automatically parses endpoints, HTTP methods, path parameters, and sample request body schemas.</li>
+                <li><strong>Postman Collections v2.1:</strong> Import Postman Collection JSON files. Preserves request
+                    headers, body payloads, and environment variable mappings.</li>
+                <li><strong>cURL Command Importer:</strong> Paste any single or multi-line cURL command string.
+                    LoadForge extracts target URL, HTTP method, headers, and request data.</li>
+                <li><strong>HAR (HTTP Archive) Importer:</strong> Import HAR session files exported from Chrome DevTools
+                    to replicate real browser traffic sequences.</li>
             </ul>
         </div>
 
@@ -665,7 +760,8 @@ X-Random-ID: {{random_uuid}}</code></pre>
         <div id="telemetry" class="doc-section">
             <div class="breadcrumb">Docs / Observability / <span>Telemetry & Quantiles Math</span></div>
             <h1>📊 Real-Time Telemetry & Quantiles Math</h1>
-            <p>LoadForge uses lock-free atomic counters and exact percentile math algorithms to calculate tail latencies without impacting load generator throughput.</p>
+            <p>LoadForge uses lock-free atomic counters and exact percentile math algorithms to calculate tail latencies
+                without impacting load generator throughput.</p>
 
             <h2>Percentile Metric Definitions</h2>
             <table>
@@ -715,19 +811,23 @@ X-Random-ID: {{random_uuid}}</code></pre>
             <div class="grid">
                 <div class="card">
                     <div class="card-title">DNS Lookup Time</div>
-                    <p>Time required to resolve host domain name to target IP address. High DNS latency indicates local resolver or DNS cache issues.</p>
+                    <p>Time required to resolve host domain name to target IP address. High DNS latency indicates local
+                        resolver or DNS cache issues.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">TCP Handshake Time</div>
-                    <p>Duration to establish 3-way TCP socket connection. High TCP latency indicates network congestion or SYN queue backlog.</p>
+                    <p>Duration to establish 3-way TCP socket connection. High TCP latency indicates network congestion
+                        or SYN queue backlog.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">TLS Handshake Time</div>
-                    <p>Time to negotiate SSL/TLS certificates and key exchange. Indicates crypto CPU overhead or missing HTTP connection keep-alive.</p>
+                    <p>Time to negotiate SSL/TLS certificates and key exchange. Indicates crypto CPU overhead or missing
+                        HTTP connection keep-alive.</p>
                 </div>
                 <div class="card">
                     <div class="card-title">TTFB (Time to First Byte)</div>
-                    <p>Time elapsed from sending request until receiving first response byte. Represents server application code and database query processing time.</p>
+                    <p>Time elapsed from sending request until receiving first response byte. Represents server
+                        application code and database query processing time.</p>
                 </div>
             </div>
         </div>
@@ -739,10 +839,14 @@ X-Random-ID: {{random_uuid}}</code></pre>
             <p>LoadForge analyzes telemetry streams algorithmically using a 4-step diagnostic framework:</p>
 
             <ol>
-                <li><strong>Observation:</strong> Detects sudden latency inflection points or error spikes during test execution.</li>
-                <li><strong>Evidence:</strong> Gathers matching HTTP status distributions (e.g. 504 Gateway Timeout or 503 Service Unavailable) and TTFB waterfall spikes.</li>
-                <li><strong>Likely Root Cause:</strong> Classifies problem into Database Connection Lock, Thread/Worker Pool Exhaustion, Memory Leak, or Socket Starvation.</li>
-                <li><strong>Recommended Action:</strong> Provides concrete remediation steps (e.g., increase DB pool size, add HTTP keep-alive header, optimize slow SQL query).</li>
+                <li><strong>Observation:</strong> Detects sudden latency inflection points or error spikes during test
+                    execution.</li>
+                <li><strong>Evidence:</strong> Gathers matching HTTP status distributions (e.g. 504 Gateway Timeout or
+                    503 Service Unavailable) and TTFB waterfall spikes.</li>
+                <li><strong>Likely Root Cause:</strong> Classifies problem into Database Connection Lock, Thread/Worker
+                    Pool Exhaustion, Memory Leak, or Socket Starvation.</li>
+                <li><strong>Recommended Action:</strong> Provides concrete remediation steps (e.g., increase DB pool
+                    size, add HTTP keep-alive header, optimize slow SQL query).</li>
             </ol>
         </div>
 
@@ -750,7 +854,8 @@ X-Random-ID: {{random_uuid}}</code></pre>
         <div id="comparison" class="doc-section">
             <div class="breadcrumb">Docs / Observability / <span>Side-by-Side Comparisons</span></div>
             <h1>⚖️ Side-by-Side Test Run Comparisons</h1>
-            <p>Compare baseline test runs against new deployment runs to catch performance regressions before production rollout.</p>
+            <p>Compare baseline test runs against new deployment runs to catch performance regressions before production
+                rollout.</p>
 
             <p>LoadForge computes absolute and percentage deltas for:</p>
             <ul>
@@ -768,10 +873,14 @@ X-Random-ID: {{random_uuid}}</code></pre>
             <p>Export benchmark execution data into multiple formats for sharing with team members or archiving:</p>
 
             <ul>
-                <li><strong>Interactive Standalone HTML Report:</strong> Fully self-contained HTML file containing embedded interactive metric charts.</li>
-                <li><strong>Executive PDF Report:</strong> Crisp summary report tailored for architecture reviews and executive summaries.</li>
-                <li><strong>Raw Telemetry JSON:</strong> Machine-readable JSON snapshot ideal for CI/CD pipeline assertions.</li>
-                <li><strong>CSV Metrics Spreadsheet:</strong> Raw time-series tabular data for custom analysis in Excel or Grafana.</li>
+                <li><strong>Interactive Standalone HTML Report:</strong> Fully self-contained HTML file containing
+                    embedded interactive metric charts.</li>
+                <li><strong>Executive PDF Report:</strong> Crisp summary report tailored for architecture reviews and
+                    executive summaries.</li>
+                <li><strong>Raw Telemetry JSON:</strong> Machine-readable JSON snapshot ideal for CI/CD pipeline
+                    assertions.</li>
+                <li><strong>CSV Metrics Spreadsheet:</strong> Raw time-series tabular data for custom analysis in Excel
+                    or Grafana.</li>
             </ul>
         </div>
 
@@ -833,14 +942,16 @@ X-Random-ID: {{random_uuid}}</code></pre>
         <div id="security" class="doc-section">
             <div class="breadcrumb">Docs / Developers / <span>Security & Privacy</span></div>
             <h1>🛡️ Security & Secret Sanitization Policy</h1>
-            
+
             <div class="callout warning">
                 <div class="callout-title">⚠️ Authorized Load Testing Disclaimer</div>
-                <p>Only load test applications, APIs, and servers that you own or have explicit written permission to test. Unauthorized load testing may violate terms of service and network safety policies.</p>
+                <p>Only load test applications, APIs, and servers that you own or have explicit written permission to
+                    test. Unauthorized load testing may violate terms of service and network safety policies.</p>
             </div>
 
             <h2>Automatic Secret Payload Masking</h2>
-            <p>LoadForge automatically redacts sensitive authentication payloads, Bearer tokens, API keys, and passwords in reports and database exports by replacing them with <code>[MASKED_SECRET]</code>.</p>
+            <p>LoadForge automatically redacts sensitive authentication payloads, Bearer tokens, API keys, and passwords
+                in reports and database exports by replacing them with <code>[MASKED_SECRET]</code>.</p>
         </div>
 
     </main>
@@ -849,10 +960,10 @@ X-Random-ID: {{random_uuid}}</code></pre>
         function showSection(id) {
             document.querySelectorAll('.doc-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            
+
             const targetSec = document.getElementById(id);
             if (targetSec) targetSec.classList.add('active');
-            
+
             event.currentTarget.classList.add('active');
             window.location.hash = id;
         }
@@ -882,4 +993,5 @@ X-Random-ID: {{random_uuid}}</code></pre>
         });
     </script>
 </body>
+
 </html>
