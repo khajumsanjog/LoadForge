@@ -27,6 +27,8 @@ GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o "$BUILD_TMP/mac-arm/loadfo
 cat << 'EOF' > "$BUILD_TMP/mac-arm/Double-Click-To-Run.command"
 #!/bin/bash
 DIR="$(cd "$(dirname "$0")" && pwd)"
+xattr -d com.apple.quarantine "$DIR/loadforge" 2>/dev/null || true
+xattr -cr "$DIR" 2>/dev/null || true
 chmod +x "$DIR/loadforge"
 "$DIR/loadforge" -port 8080 -browser
 EOF
@@ -39,6 +41,8 @@ GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o "$BUILD_TMP/mac-intel/load
 cat << 'EOF' > "$BUILD_TMP/mac-intel/Double-Click-To-Run.command"
 #!/bin/bash
 DIR="$(cd "$(dirname "$0")" && pwd)"
+xattr -d com.apple.quarantine "$DIR/loadforge" 2>/dev/null || true
+xattr -cr "$DIR" 2>/dev/null || true
 chmod +x "$DIR/loadforge"
 "$DIR/loadforge" -port 8080 -browser
 EOF
