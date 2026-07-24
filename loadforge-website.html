@@ -61,14 +61,14 @@
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta {
-      background: linear-gradient(135deg, var(--accent-glow), #4f46e5);
+      background: linear-gradient(135deg, var(--accent2), #16a34a);
       color: #fff; border: none; border-radius: 10px;
       padding: .65rem 1.4rem; font-size: 0.9rem; font-weight: 600;
       text-decoration: none; cursor: pointer;
-      box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.3);
       transition: all .2s;
     }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 0 35px rgba(14, 165, 233, 0.5); }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 0 35px rgba(34, 197, 94, 0.5); }
 
     /* ── HERO ── */
     .hero {
@@ -104,14 +104,14 @@
     .hero-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
     .btn-primary {
       display: inline-flex; align-items: center; gap: .6rem;
-      background: linear-gradient(135deg, var(--accent-glow), #4f46e5);
+      background: linear-gradient(135deg, var(--accent2), #16a34a);
       color: #fff; border: none; border-radius: 12px;
       padding: .9rem 2.2rem; font-size: 1rem; font-weight: 600;
       text-decoration: none; cursor: pointer;
-      box-shadow: 0 0 35px rgba(14, 165, 233, 0.35);
+      box-shadow: 0 0 35px rgba(34, 197, 94, 0.35);
       transition: all .2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(14, 165, 233, 0.55); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(34, 197, 94, 0.55); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: .6rem;
       background: var(--surface); color: var(--text);
@@ -247,10 +247,10 @@
       <a href="#features">Features</a>
       <a href="#architecture">Architecture</a>
       <a href="loadforge-docs.html" target="_blank">Docs Portal</a>
-      <a href="#downloads">Downloads</a>
+      <a href="#download-zip">Download ZIP</a>
       <a href="https://github.com/khajumsanjog/LoadForge" target="_blank">GitHub Repo</a>
     </div>
-    <a href="#downloads" class="nav-cta">Download App</a>
+    <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip" class="nav-cta">📦 Download Source ZIP</a>
   </nav>
 
   <!-- HERO -->
@@ -264,8 +264,8 @@
       LoadForge is a local-first alternative to JMeter, Locust, and k6 with zero external dependencies. Execute high-concurrency traffic tests, inspect real-time Locust-style graphs, detect endpoint bottlenecks, and export multi-format HTML/PDF reports.
     </p>
     <div class="hero-buttons">
-      <a href="#downloads" class="btn-primary">
-        ⚡ 1-Click Launch & Download
+      <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip" class="btn-primary">
+        📦 Download LoadForge Source Code ZIP
       </a>
       <a href="https://github.com/khajumsanjog/LoadForge" target="_blank" class="btn-secondary">
         ⭐ GitHub Repository
@@ -281,7 +281,7 @@
     <h2>⚡ Universal 1-Line Installer & Auto-Launcher</h2>
     <div class="code-block">
       <button class="copy-btn" onclick="copyInstall()">Copy</button>
-      <span class="comment"># Auto-detects OS (macOS, Linux, Windows), installs binary & opens browser</span><br />
+      <span class="comment"># Auto-detects OS (macOS, Linux, Windows), installs & opens browser</span><br />
       <span class="cmd">curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh</span>
     </div>
   </section>
@@ -354,8 +354,8 @@
           <span style="color: #64748b; font-size: .75rem; margin-left: auto;">Terminal</span>
         </div>
         <div class="mockup-body text-slate-300 space-y-2">
-          <div style="color: #38bdf8;">$ curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh</div>
-          <div style="color: #64748b;">Downloading LoadForge for darwin (arm64)...</div>
+          <div style="color: #38bdf8;">$ cd LoadForge/backend && go run main.go -browser</div>
+          <div style="color: #64748b;">Starting LoadForge...</div>
           <div>SQLite DB initialized at <span style="color: #22c55e;">~/.loadforge/loadforge.db</span></div>
           <div>Server listening at <span style="color: #38bdf8;">http://localhost:8080</span></div>
           <div style="color: #c084fc;">[RUNNING] Constant Load Test: 200 VUs target</div>
@@ -365,40 +365,20 @@
     </div>
   </section>
 
-  <!-- DOWNLOAD MATRIX -->
-  <section class="section" id="downloads">
+  <!-- DOWNLOAD ZIP SECTION -->
+  <section class="section" id="download-zip">
     <div class="section-header">
-      <h2>Double-Clickable App Packages (.zip)</h2>
-      <p>Includes pre-configured double-clickable launch scripts for macOS, Windows, and Linux.</p>
+      <h2>Download Full Project Source (backend & frontend)</h2>
+      <p>1-Click download for macOS, Linux, and Windows.</p>
     </div>
 
     <div class="download-grid">
-      <div class="download-card">
-        <div class="download-os">🍏 macOS Apple Silicon</div>
-        <div class="download-arch">M1 / M2 / M3 / M4 (ARM64)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Mac M1/M2/M3 ZIP</a>
-        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.command</code></p>
-      </div>
-
-      <div class="download-card">
-        <div class="download-os">💻 macOS Intel</div>
-        <div class="download-arch">Intel Mac (x86_64)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Mac Intel ZIP</a>
-        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.command</code></p>
-      </div>
-
-      <div class="download-card">
-        <div class="download-os">🪟 Windows</div>
-        <div class="download-arch">Windows 64-bit (.exe)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Windows ZIP</a>
-        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.bat</code></p>
-      </div>
-
-      <div class="download-card">
-        <div class="download-os">🐧 Linux</div>
-        <div class="download-arch">Linux 64-bit (x86_64)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Linux ZIP</a>
-        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & run <code>./run.sh</code></p>
+      <div class="download-card" style="text-align: center; grid-column: span 3;">
+        <div class="download-os">📦 Download LoadForge Source Code ZIP</div>
+        <div class="download-arch">Includes both backend/ and frontend/ folders in a single archive</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip" class="btn-primary" style="margin-top: 1rem; display: inline-flex;">
+          ⚡ Download LoadForge-SourceCode.zip
+        </a>
       </div>
     </div>
   </section>

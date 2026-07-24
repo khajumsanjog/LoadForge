@@ -16,11 +16,25 @@
   A local-first, self-hosted performance testing platform designed as a serious, developer-friendly alternative to Apache JMeter, Locust, and k6 — with zero external database dependencies, sub-millisecond quantile metrics, real-time WebSockets telemetry, and automated bottleneck detection.
 </p>
 
+<p align="center">
+  <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip">
+    <img src="https://img.shields.io/badge/📦_Download_LoadForge_SourceCode.zip-backend_&_frontend-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="Download ZIP" />
+  </a>
+</p>
+
 ---
 
-## ⚡ 1-Line Quick Install & Launch
+## ⚡ 1-Click Download (macOS, Linux, & Windows)
 
-Auto-detects your Operating System (macOS Apple Silicon, macOS Intel, Linux, Windows), downloads the binary, sets permissions, and launches LoadForge on `http://localhost:8080`:
+Download the complete source code containing both `backend/` and `frontend/` directories in a single archive:
+
+👉 **[Download LoadForge-SourceCode.zip](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip)**
+
+---
+
+## 🚀 1-Line Quick Install & Launch
+
+Auto-detects your Operating System (macOS, Linux, Windows), downloads LoadForge, and launches on `http://localhost:8080`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh
@@ -28,30 +42,17 @@ curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install
 
 ---
 
-## 📦 Double-Clickable App Packages (.zip)
-
-No terminal commands required! Download, extract, and double-click to run:
-
-| Platform | Package (.zip) | How to Run |
-| :--- | :--- | :--- |
-| 🍏 **macOS Apple Silicon** | [**`LoadForge-macOS-AppleSilicon.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip) | Unzip & double-click **`Double-Click-To-Run.command`** |
-| 💻 **macOS Intel** | [**`LoadForge-macOS-Intel.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip) | Unzip & double-click **`Double-Click-To-Run.command`** |
-| 🪟 **Windows** | [**`LoadForge-Windows-x64.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip) | Unzip & double-click **`Double-Click-To-Run.bat`** |
-| 🐧 **Linux** | [**`LoadForge-Linux-x64.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip) | Unzip & run **`./run.sh`** |
-
----
-
 ## 🛠️ Run / Build from Source
 
 ```bash
-# Clone repository
+# Unzip LoadForge-SourceCode.zip or clone repository
 git clone https://github.com/khajumsanjog/LoadForge.git
 cd LoadForge/backend
 
 # Option A: Run directly with Go
 go run main.go -browser
 
-# Option B: Compile standalone binary
+# Option B: Compile standalone binary executable
 go build -o loadforge main.go
 ./loadforge -port 8080 -browser
 ```

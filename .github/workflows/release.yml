@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-and-release:
-    name: Build & Publish Release Packages
+    name: Build & Publish Release Package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -34,12 +34,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y zip
 
-      - name: Install Frontend Dependencies
-        run: |
-          cd frontend
-          npm install --include=optional
-
-      - name: Build & Package All Release ZIPs
+      - name: Build & Package Source Code ZIP
         run: |
           chmod +x build-releases.sh
           ./build-releases.sh
@@ -48,25 +43,23 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            releases/LoadForge-macOS-AppleSilicon.zip
-            releases/LoadForge-macOS-Intel.zip
-            releases/LoadForge-Windows-x64.zip
-            releases/LoadForge-Linux-x64.zip
+            releases/LoadForge-SourceCode.zip
           name: "LoadForge ${{ github.ref_name }} — High-Concurrency Local Load Testing Platform"
           body: |
             ## ⚡ LoadForge ${{ github.ref_name }} Release
 
-            ### 📦 1-Click Double-Clickable App Packages:
-            - 🍏 **macOS Apple Silicon (M1/M2/M3/M4)**: `LoadForge-macOS-AppleSilicon.zip` *(Unzip & double-click `Double-Click-To-Run.command`)*
-            - 💻 **macOS Intel**: `LoadForge-macOS-Intel.zip` *(Unzip & double-click `Double-Click-To-Run.command`)*
-            - 🪟 **Windows (x64)**: `LoadForge-Windows-x64.zip` *(Unzip & double-click `Double-Click-To-Run.bat`)*
-            - 🐧 **Linux (x64)**: `LoadForge-Linux-x64.zip` *(Unzip & run `./run.sh`)*
+            ### 📦 Complete Source Code Package (Backend & Frontend):
+            - 👉 [`LoadForge-SourceCode.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-SourceCode.zip) *(Contains both `backend/` and `frontend/` folders for Mac, Linux, and Windows)*
 
             ---
 
-            ### ⚡ Universal Terminal Quick Installer:
+            ### 🚀 Quick Start (Run on Mac, Linux, or Windows):
             ```bash
-            curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh
+            # Unzip LoadForge-SourceCode.zip
+            cd LoadForge/backend
+
+            # Run LoadForge
+            go run main.go -browser
             ```
           draft: false
           prerelease: false
