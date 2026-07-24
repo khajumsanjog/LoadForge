@@ -13,6 +13,7 @@ mkdir -p "$RELEASE_DIR"
 
 echo "1. Building React Frontend production bundle..."
 cd "$ROOT_DIR/frontend"
+npm install --include=optional || npm install
 npm run build
 
 echo "2. Compiling cross-platform Go binary executables & packaging ZIPs..."

@@ -32,6 +32,11 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y zip
 
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install --include=optional
+
       - name: Build & Package All Release ZIPs
         run: |
           chmod +x build-releases.sh
