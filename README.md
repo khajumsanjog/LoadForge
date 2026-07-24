@@ -16,28 +16,34 @@
   A local-first, self-hosted performance testing platform designed as a serious, developer-friendly alternative to Apache JMeter, Locust, and k6 — with zero external database dependencies, sub-millisecond quantile metrics, real-time WebSockets telemetry, and automated bottleneck detection.
 </p>
 
-<p align="center">
-  <a href="https://github.com/khajumsanjog/LoadForge/releases">
-    <img src="https://img.shields.io/badge/⚡_Download_Latest_Release-GitHub_Releases-0ea5e9?style=for-the-badge&logo=github&logoColor=white" alt="Download Release" />
-  </a>
-</p>
+---
+
+## ⚡ Direct 1-Click Binary Executable Downloads
+
+Download the pre-compiled binary for your system directly from GitHub:
+
+| Platform | Architecture | Direct Download Link |
+| :--- | :--- | :--- |
+|  **macOS (Apple Silicon)** | M1 / M2 / M3 / M4 (ARM64) | [**Download `loadforge-darwin-arm64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-arm64) |
+|  **macOS (Intel)** | Intel (AMD64) | [**Download `loadforge-darwin-amd64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-amd64) |
+| 🐧 **Linux** | 64-bit (x86_64) | [**Download `loadforge-linux-amd64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-linux-amd64) |
+| 🪟 **Windows** | 64-bit (.exe) | [**Download `loadforge-windows-amd64.exe`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-windows-amd64.exe) |
 
 ---
 
-## 🚀 Download & Quick Start
+## 🚀 How to Run
 
-### Option 1: Download Pre-Compiled Executable Binary
-Download the pre-compiled standalone binary for macOS, Linux, or Windows:
-👉 **[Download LoadForge Release Binaries](https://github.com/khajumsanjog/LoadForge/releases)**
-
-Execute the binary in your terminal:
-```bash
-./loadforge -port 8080 -browser
-```
+1. Open your terminal in the directory where you downloaded the file.
+2. Give execution permissions (macOS / Linux):
+   ```bash
+   chmod +x loadforge-darwin-arm64
+   ./loadforge-darwin-arm64 -port 8080 -browser
+   ```
+3. Open **[http://localhost:8080](http://localhost:8080)** in your browser.
 
 ---
 
-### Option 2: Run / Build from Source
+## 🛠️ Run / Build from Source
 
 ```bash
 # Clone repository
@@ -52,8 +58,6 @@ go build -o loadforge main.go
 ./loadforge -port 8080 -browser
 ```
 
-Open your browser at **[http://localhost:8080](http://localhost:8080)** to access the dashboard.
-
 ---
 
 ## ✨ Features at a Glance
@@ -67,96 +71,6 @@ Open your browser at **[http://localhost:8080](http://localhost:8080)** to acces
 - **📈 Side-by-Side Test Comparison**: Compare any 2 test runs to detect performance regressions and percent deltas.
 - **📑 Multi-Format Report Exporter**: Download interactive HTML reports, crisp PDFs, raw JSON, and CSV spreadsheets.
 - **🛡️ Local-First & Zero Phone-Home**: Embedded SQLite storage at `~/.loadforge/loadforge.db`. No data leaves your machine.
-
----
-
-## 📊 Locust-Style Graphs & Beginner Guidance
-
-LoadForge includes intuitive, beginner-friendly graphs inspired by Locust:
-
-| Metric Chart | Description | What It Tells You |
-| :--- | :--- | :--- |
-| **Total RPS vs Failures/sec** | Green line (Total RPS), Red line (Failures/sec), Purple line (Active Users) | Shows if your server handles traffic scaling without dropping requests. |
-| **Response Times Spectrum (ms)** | P50 (Median), P95 (95th Percentile), P99 (99th Percentile), Max Latency | Identifies backend thread queueing, database locks, and tail latency. |
-| **Active Virtual Users (VUs)** | Concurrency ramp-up curve over time | Displays active worker goroutines hitting your target application. |
-| **HTTP Status Code Breakdown** | Bar chart counting 2xx, 3xx, 4xx, and 5xx responses | Instant visual count of successful vs error status codes. |
-
----
-
-## 📂 Project Structure
-
-```text
-LoadForge/
-├── backend/                  # Go Load Engine, REST API & SQLite Database
-│   ├── main.go               # Main application entrypoint & static SPA embed
-│   ├── pkg/
-│   │   ├── analysis/         # Automated Bottleneck & Comparison Engine
-│   │   ├── api/              # REST API Handlers & WebSocket Hub
-│   │   ├── db/               # SQLite Migration & Query Persistence
-│   │   ├── engine/           # High-Concurrency Worker Pool, Scenarios & Telemetry
-│   │   ├── importers/        # OpenAPI, Postman, cURL & HAR Parsers
-│   │   ├── models/           # Go Data Structures & Quantiles Math
-│   │   └── reports/          # HTML, PDF, JSON & CSV Report Generators
-│   └── dist/                 # Compiled Vite React Frontend Bundle (Embedded)
-├── frontend/                 # React + TypeScript + Vite + Tailwind CSS
-│   ├── src/
-│   │   ├── components/       # Navigation Sidebar & UI Widgets
-│   │   ├── pages/            # Dashboard, Create, Live Test, Endpoint, Bottleneck, Docs, Reports
-│   │   ├── services/         # REST Client & WebSocket Hook
-│   │   └── types/            # TypeScript Interface Definitions
-│   ├── package.json
-│   ├── tailwind.config.js
-│   └── vite.config.ts
-├── loadforge-website.html    # Standalone Product Landing Page
-├── loadforge-docs.html       # Standalone Single-File GitHub Documentation Portal
-└── README.md                 # Project Documentation
-```
-
----
-
-## 🛠️ Building from Source
-
-### Prerequisites
-- **Go**: 1.22 or higher
-- **Node.js**: 18+ and `npm`
-
-### Step 1: Build Frontend Static Bundle
-```bash
-cd frontend
-npm install
-npm run build
-```
-*This compiles TypeScript and outputs the production bundle to `../backend/dist`.*
-
-### Step 2: Build & Package Go Executable
-```bash
-cd ../backend
-go mod tidy
-go build -o loadforge main.go
-```
-
-### Step 3: Launch LoadForge
-```bash
-./loadforge -port 8080 -browser
-```
-
----
-
-## 📖 REST API & WebSockets Reference
-
-LoadForge exposes a REST API for automation scripts and CI/CD pipelines:
-
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/configs` | Fetch all saved test configurations |
-| `POST` | `/api/configs` | Save or update a test configuration |
-| `POST` | `/api/tests/start` | Launch a load test asynchronously |
-| `POST` | `/api/tests/stop` | Stop the currently running load test |
-| `GET` | `/api/runs` | Fetch test run history |
-| `POST` | `/api/compare` | Compare two test runs side-by-side |
-| `GET` | `/api/reports/{id}/html` | Generate interactive standalone HTML report |
-| `GET` | `/api/reports/{id}/csv` | Download CSV metrics spreadsheet |
-| `WS` | `/ws` | WebSockets live telemetry stream |
 
 ---
 
