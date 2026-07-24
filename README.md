@@ -18,28 +18,26 @@
 
 ---
 
-## ⚡ Direct 1-Click Binary Executable Downloads
+## ⚡ 1-Line Quick Install & Launch
 
-Download the pre-compiled binary for your system directly from GitHub:
+Auto-detects your Operating System (macOS Apple Silicon, macOS Intel, Linux, Windows), downloads the binary, sets permissions, and launches LoadForge on `http://localhost:8080`:
 
-| Platform | Architecture | Direct Download Link |
-| :--- | :--- | :--- |
-|  **macOS (Apple Silicon)** | M1 / M2 / M3 / M4 (ARM64) | [**Download `loadforge-darwin-arm64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-arm64) |
-|  **macOS (Intel)** | Intel (AMD64) | [**Download `loadforge-darwin-amd64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-amd64) |
-| 🐧 **Linux** | 64-bit (x86_64) | [**Download `loadforge-linux-amd64`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-linux-amd64) |
-| 🪟 **Windows** | 64-bit (.exe) | [**Download `loadforge-windows-amd64.exe`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-windows-amd64.exe) |
+```bash
+curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh
+```
 
 ---
 
-## 🚀 How to Run
+## 📦 Double-Clickable App Packages (.zip)
 
-1. Open your terminal in the directory where you downloaded the file.
-2. Give execution permissions (macOS / Linux):
-   ```bash
-   chmod +x loadforge-darwin-arm64
-   ./loadforge-darwin-arm64 -port 8080 -browser
-   ```
-3. Open **[http://localhost:8080](http://localhost:8080)** in your browser.
+No terminal commands required! Download, extract, and double-click to run:
+
+| Platform | Package (.zip) | How to Run |
+| :--- | :--- | :--- |
+| 🍏 **macOS Apple Silicon** | [**`LoadForge-macOS-AppleSilicon.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip) | Unzip & double-click **`Double-Click-To-Run.command`** |
+| 💻 **macOS Intel** | [**`LoadForge-macOS-Intel.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip) | Unzip & double-click **`Double-Click-To-Run.command`** |
+| 🪟 **Windows** | [**`LoadForge-Windows-x64.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip) | Unzip & double-click **`Double-Click-To-Run.bat`** |
+| 🐧 **Linux** | [**`LoadForge-Linux-x64.zip`**](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip) | Unzip & run **`./run.sh`** |
 
 ---
 

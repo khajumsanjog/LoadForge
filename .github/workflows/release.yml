@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-and-release:
-    name: Build & Publish Release Binaries
+    name: Build & Publish Release Packages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -27,33 +27,19 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Build React Frontend
+      - name: Build & Package All Release ZIPs
         run: |
-          cd frontend
-          npm ci || npm install
-          npm run build
-
-      - name: Build Cross-Platform Go Binaries
-        run: |
-          mkdir -p releases
-          cd backend
-
-          echo "Compiling macOS ARM64 (Apple Silicon)..."
-          GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o ../releases/loadforge-darwin-arm64 main.go
-
-          echo "Compiling macOS AMD64 (Intel)..."
-          GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o ../releases/loadforge-darwin-amd64 main.go
-
-          echo "Compiling Linux AMD64 (x86_64)..."
-          GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ../releases/loadforge-linux-amd64 main.go
-
-          echo "Compiling Windows AMD64 (.exe)..."
-          GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o ../releases/loadforge-windows-amd64.exe main.go
+          chmod +x build-releases.sh
+          ./build-releases.sh
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            releases/LoadForge-macOS-AppleSilicon.zip
+            releases/LoadForge-macOS-Intel.zip
+            releases/LoadForge-Windows-x64.zip
+            releases/LoadForge-Linux-x64.zip
             releases/loadforge-darwin-arm64
             releases/loadforge-darwin-amd64
             releases/loadforge-linux-amd64
@@ -61,23 +47,18 @@ jobs:
           title: "LoadForge ${{ github.ref_name }} — High-Concurrency Local Load Testing Platform"
           body: |
             ## ⚡ LoadForge ${{ github.ref_name }} Release
-            
-            High-Concurrency Local Load Testing & Performance Observability Platform.
 
-            ### 📦 Download Pre-Compiled Executables:
-            - **macOS Apple Silicon (M1/M2/M3/M4)**: `loadforge-darwin-arm64`
-            - **macOS Intel**: `loadforge-darwin-amd64`
-            - **Linux 64-bit**: `loadforge-linux-amd64`
-            - **Windows 64-bit**: `loadforge-windows-amd64.exe`
+            ### 📦 Easy 1-Click Run Packages (Double-Click to Launch):
+            - 🍏 **macOS Apple Silicon (M1/M2/M3/M4)**: [`LoadForge-macOS-AppleSilicon.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip) *(Unzip & double-click `Double-Click-To-Run.command`)*
+            - 💻 **macOS Intel**: [`LoadForge-macOS-Intel.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip) *(Unzip & double-click `Double-Click-To-Run.command`)*
+            - 🪟 **Windows (x64)**: [`LoadForge-Windows-x64.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip) *(Unzip & double-click `Double-Click-To-Run.bat`)*
+            - 🐧 **Linux (x64)**: [`LoadForge-Linux-x64.zip`](https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip) *(Unzip & run `./run.sh`)*
 
-            ### 🚀 Quick Start:
+            ---
+
+            ### ⚡ 1-Line Universal Terminal Installer:
             ```bash
-            # macOS / Linux
-            chmod +x loadforge-darwin-arm64
-            ./loadforge-darwin-arm64 -port 8080 -browser
-
-            # Windows
-            .\loadforge-windows-amd64.exe -port 8080 -browser
+            curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh
             ```
           draft: false
           prerelease: false

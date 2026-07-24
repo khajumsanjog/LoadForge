@@ -123,7 +123,7 @@
 
     /* ── QUICK TERMINAL INSTALL ── */
     .install-section {
-      max-width: 760px; margin: 0 auto 6rem; padding: 0 2rem;
+      max-width: 820px; margin: 0 auto 6rem; padding: 0 2rem;
       text-align: center;
     }
     .install-section h2 { font-size: 1.1rem; color: var(--muted); margin-bottom: 1rem; font-weight: 500; }
@@ -250,7 +250,7 @@
       <a href="#downloads">Downloads</a>
       <a href="https://github.com/khajumsanjog/LoadForge" target="_blank">GitHub Repo</a>
     </div>
-    <a href="#downloads" class="nav-cta">Download Executables</a>
+    <a href="#downloads" class="nav-cta">Download App</a>
   </nav>
 
   <!-- HERO -->
@@ -265,7 +265,7 @@
     </p>
     <div class="hero-buttons">
       <a href="#downloads" class="btn-primary">
-        ⚡ Download Binary Executables
+        ⚡ 1-Click Launch & Download
       </a>
       <a href="https://github.com/khajumsanjog/LoadForge" target="_blank" class="btn-secondary">
         ⭐ GitHub Repository
@@ -278,11 +278,11 @@
 
   <!-- QUICK INSTALL -->
   <section class="install-section">
-    <h2>One-Line Binary Launch (Zero Install Dependencies)</h2>
+    <h2>⚡ Universal 1-Line Installer & Auto-Launcher</h2>
     <div class="code-block">
       <button class="copy-btn" onclick="copyInstall()">Copy</button>
-      <span class="comment"># Launch pre-compiled binary executable</span><br />
-      <span class="cmd">./loadforge-darwin-arm64</span> -port 8080 -browser
+      <span class="comment"># Auto-detects OS (macOS, Linux, Windows), installs binary & opens browser</span><br />
+      <span class="cmd">curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh</span>
     </div>
   </section>
 
@@ -354,8 +354,8 @@
           <span style="color: #64748b; font-size: .75rem; margin-left: auto;">Terminal</span>
         </div>
         <div class="mockup-body text-slate-300 space-y-2">
-          <div style="color: #38bdf8;">$ ./loadforge-darwin-arm64 -port 8080 -browser</div>
-          <div style="color: #64748b;">Starting LoadForge...</div>
+          <div style="color: #38bdf8;">$ curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh</div>
+          <div style="color: #64748b;">Downloading LoadForge for darwin (arm64)...</div>
           <div>SQLite DB initialized at <span style="color: #22c55e;">~/.loadforge/loadforge.db</span></div>
           <div>Server listening at <span style="color: #38bdf8;">http://localhost:8080</span></div>
           <div style="color: #c084fc;">[RUNNING] Constant Load Test: 200 VUs target</div>
@@ -368,33 +368,37 @@
   <!-- DOWNLOAD MATRIX -->
   <section class="section" id="downloads">
     <div class="section-header">
-      <h2>1-Click Binary Executable Downloads</h2>
-      <p>Direct download links for pre-compiled binaries from the GitHub repository.</p>
+      <h2>Double-Clickable App Packages (.zip)</h2>
+      <p>Includes pre-configured double-clickable launch scripts for macOS, Windows, and Linux.</p>
     </div>
 
     <div class="download-grid">
       <div class="download-card">
-        <div class="download-os"> macOS Executables</div>
-        <div class="download-arch">loadforge-darwin-arm64 (M1/M2/M3)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-arm64" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download macOS ARM64</a>
+        <div class="download-os">🍏 macOS Apple Silicon</div>
+        <div class="download-arch">M1 / M2 / M3 / M4 (ARM64)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-AppleSilicon.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Mac M1/M2/M3 ZIP</a>
+        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.command</code></p>
       </div>
 
       <div class="download-card">
-        <div class="download-os"> macOS Intel</div>
-        <div class="download-arch">loadforge-darwin-amd64 (Intel Mac)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-darwin-amd64" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download macOS AMD64</a>
+        <div class="download-os">💻 macOS Intel</div>
+        <div class="download-arch">Intel Mac (x86_64)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-macOS-Intel.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Mac Intel ZIP</a>
+        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.command</code></p>
       </div>
 
       <div class="download-card">
-        <div class="download-os">🐧 Linux Executable</div>
-        <div class="download-arch">loadforge-linux-amd64 (Linux x86_64)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-linux-amd64" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Linux Binary</a>
+        <div class="download-os">🪟 Windows</div>
+        <div class="download-arch">Windows 64-bit (.exe)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Windows-x64.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Windows ZIP</a>
+        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & double-click <code>Double-Click-To-Run.bat</code></p>
       </div>
 
       <div class="download-card">
-        <div class="download-os">🪟 Windows Executable</div>
-        <div class="download-arch">loadforge-windows-amd64.exe (Windows x64)</div>
-        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/loadforge-windows-amd64.exe" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Windows .exe</a>
+        <div class="download-os">🐧 Linux</div>
+        <div class="download-arch">Linux 64-bit (x86_64)</div>
+        <a href="https://github.com/khajumsanjog/LoadForge/raw/main/releases/LoadForge-Linux-x64.zip" class="btn-primary" style="font-size: .85rem; padding: .6rem 1.2rem;">Download Linux ZIP</a>
+        <p style="font-size: 11px; color: #64748b; margin-top: 8px;">Unzip & run <code>./run.sh</code></p>
       </div>
     </div>
   </section>
@@ -409,7 +413,7 @@
 
   <script>
     function copyInstall() {
-      navigator.clipboard.writeText('./loadforge-darwin-arm64 -port 8080 -browser');
+      navigator.clipboard.writeText('curl -fsSL https://raw.githubusercontent.com/khajumsanjog/LoadForge/main/install.sh | sh');
       const btn = document.querySelector('.copy-btn');
       btn.innerText = 'Copied!';
       setTimeout(() => { btn.innerText = 'Copy'; }, 2000);
