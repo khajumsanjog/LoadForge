@@ -73,6 +73,6 @@ go build -o loadforge main.go
 
 ---
 
-## 📄 License
+## 📄 Creator
 
-Licensed under the **MIT License**.
+Build with ❤️ by <a href="khajumsanjog.com">KhajumSanjog</a>
