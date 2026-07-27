@@ -75,4 +75,4 @@ go build -o loadforge main.go
 
 ## 📄 Creator
 
-Build with ❤️ by <a href="khajumsanjog.com">KhajumSanjog</a>
+Build with ❤️ by <a href="https://khajumsanjog.com">KhajumSanjog</a>
